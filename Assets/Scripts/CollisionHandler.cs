@@ -7,6 +7,7 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] AudioClip crashSound;
     [SerializeField] AudioClip successSound;
     AudioSource audioSource;
+    bool isTransitioning = false;
 
     void Start()
     {
@@ -14,6 +15,8 @@ public class CollisionHandler : MonoBehaviour
     }
     void OnCollisionEnter(Collision other)
     {
+        if(isTransitioning) { return; }
+
         switch(other.gameObject.tag)
         {
             case "Start":
@@ -30,6 +33,8 @@ public class CollisionHandler : MonoBehaviour
 
     void StartCrashSequence()
     {
+        isTransitioning = true;
+        audioSource.Stop();
         audioSource.PlayOneShot(crashSound);
         // todo add particle effect upon crash
         GetComponent<Motion>().enabled = false;
@@ -42,6 +47,8 @@ public class CollisionHandler : MonoBehaviour
     }
     void StartSuccessSequence()
     {
+        isTransitioning = true;
+        audioSource.Stop();
         audioSource.PlayOneShot(successSound);
         // todo add particle effect upon success
         GetComponent<Motion>().enabled = false;

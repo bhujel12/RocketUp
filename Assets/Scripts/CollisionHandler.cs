@@ -38,7 +38,8 @@ public class CollisionHandler : MonoBehaviour
         audioSource.PlayOneShot(crashSound);
         // todo add particle effect upon crash
         GetComponent<Motion>().enabled = false;
-        Invoke("ReloadLevel", delayTime);
+        Invoke(nameof(ReloadLevel), delayTime);
+     // Invoke("ReloadLevel, delayTime); same thing as 
     }
     void ReloadLevel()
     {
@@ -52,7 +53,7 @@ public class CollisionHandler : MonoBehaviour
         audioSource.PlayOneShot(successSound);
         // todo add particle effect upon success
         GetComponent<Motion>().enabled = false;
-        Invoke("LoadNextLevel", delayTime);
+        Invoke(nameof(LoadNextLevel), delayTime);
     }
     void LoadNextLevel()
     {
